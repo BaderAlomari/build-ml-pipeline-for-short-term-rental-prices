@@ -18,8 +18,6 @@ entry_points:
                      interface
         type: string
 
-      artifact_description:
-        description: A brief description of the output artifact
-        type: string
 
-    command: "python run.py {sample} {artifact_name} {artifact_type} {artifact_description}"
+
+    command: "python run.py {sample} {artifact_name} {artifact_type}"

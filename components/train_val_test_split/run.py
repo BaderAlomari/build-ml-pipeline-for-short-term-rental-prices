@@ -26,7 +26,6 @@ def go(args):
 
     df = pd.read_csv(artifact_local_path)
 
-    logger.info("Splitting trainval and test")
     trainval, test = train_test_split(
         df,
         test_size=args.test_size,
@@ -35,19 +34,18 @@ def go(args):
     )
 
     # Save to output files
-    for df, k in zip([trainval, test], ['trainval', 'test']):
-        logger.info(f"Uploading {k}_data.csv dataset")
-        with tempfile.NamedTemporaryFile("w") as fp:
-
-            df.to_csv(fp.name, index=False)
-
-            log_artifact(
-                f"{k}_data.csv",
-                f"{k}_data",
-                f"{k} split of dataset",
-                fp.name,
-                run,
-            )
+    for df_split, split_name in zip([trainval, test], ['trainval', 'test']):
+        logger.info(f"Uploading {split_name}_data.csv dataset")
+        filename = f"{split_name}_data.csv"
+        df_split.to_csv(filename, index=False)
+    
+        log_artifact(
+        filename,
+        f"{split_name}_data",
+        f"{split_name} split of dataset",
+        filename,
+        run,
+    )
 
 
 if __name__ == "__main__":

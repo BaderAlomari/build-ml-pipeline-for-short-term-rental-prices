@@ -11,16 +11,16 @@ entry_points:
 
       test_size:
         description: Size of the test split. Fraction of the dataset, or number of items
-        type: string
+        type: float
 
       random_seed:
         description: Seed for the random number generator. Use this for reproducibility
-        type: string
+        type: int
         default: 42
 
       stratify_by:
         description: Column to use for stratification (if any)
-        type: string
+        type: str
         default: 'none'
 
     command: "python run.py {input} {test_size} --random_seed {random_seed} --stratify_by {stratify_by}"
